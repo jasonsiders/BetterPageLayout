@@ -1,0 +1,14 @@
+<template>
+    <div class="slds-text-color_error">
+        <template if:true={errorEvent}>
+            <template if:true={errorMessage}>
+                <p class="slds-align_absolute-center slds-text-heading_small">{errorMessage}</p>
+            </template>
+            <template if:true={errorDetails}>
+                <template for:each={errorDetails} for:item="currentError">
+                    <p key={currentError.Id} class="slds-align_absolute-center">{currentError}</p>
+                </template>
+            </template>
+        </template>
+    </div>
+</template>

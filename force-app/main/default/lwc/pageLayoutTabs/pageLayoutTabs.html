@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-card">
+        <template if:true={sections}>
+            <div class="slds-var-p-around_small">
+                <lightning-tabset>
+                    <template for:each={sections} for:item="section">
+                        <lightning-tab key={section.Id} label={section.name} name={section.name}>
+                            <c-page-layout-section
+                                section-name={section.name}
+                                header-mode="Hidden"
+                                record-id={recordId}
+                                object-api-name={objectApiName}
+                                outer-class="slds-m-horizontal_small slds-p-bottom_small">
+                            </c-page-layout-section>
+                        </lightning-tab>
+                    </template>
+                </lightning-tabset>
+            </div>
+        </template>
+    </div>    
+</template>

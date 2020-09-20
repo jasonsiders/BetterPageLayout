@@ -1,0 +1,17 @@
+<template>
+    <div>
+        <template if:true={iconUrl}>
+            <span class={iconStyle}>
+                <template if:true={iconUrl}>
+                    <div style={backgroundColor}>
+                        <img src={iconUrl}>
+                    </div>
+                </template>
+                <template if:false={iconUrl}>
+                    <!-- If object does not have a custom tab; use the default icon -->
+                    <lightning-icon icon-name="standard:custom"></lightning-icon>
+                </template>
+            </span>
+        </template>
+    </div>
+</template>

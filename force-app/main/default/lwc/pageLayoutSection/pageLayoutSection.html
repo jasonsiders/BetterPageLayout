@@ -1,0 +1,132 @@
+<template>
+    <div>
+        <template if:true={displaySection}>
+            <!-- SPINNER -->
+            <template if:true={displaySpinner}>
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </template>
+            <!-- /SPINNER -->
+            <!-- MAIN_SECTION -->
+            <div class={outerClass}>
+                <!-- VIEW_FORM -->
+                <template if:false={editMode}>
+                    <lightning-record-view-form record-id={recordId} object-api-name={objectApiName}>
+                        <div ondblclick={toggleEditMode}>
+                            <template for:each={sectionInfo.rows} for:item="row">
+                                <!-- ROWS -->
+                                <div class="slds-grid slds-gutters slds-var-m-vertical_xx-small" key={row.Id}>
+                                    <template for:each={row.columns} for:item="column">
+                                        <!-- COLUMNS -->
+                                        <div key={column.Id} id={column.Id} class="slds-col" style="width: 50%">
+                                            <template if:true={column.isField}>
+                                                <!-- Field Labels -->
+                                                <template if:true={column.fieldLabel}>
+                                                    <p class="slds-form-element__label">{column.fieldLabel}</p>
+                                                </template>
+                                                <!-- Field Values -->
+                                                <div class="slds-border_bottom">
+                                                    <div class="slds-grid">
+                                                        <!-- Value: Normal Fields -->
+                                                        <template if:true={column.fieldName}>
+                                                            <lightning-output-field field-name={column.fieldName} variant="label-hidden"></lightning-output-field>
+                                                            <template if:true={column.editable}>
+                                                                <div class="slds-col_bump-left">
+                                                                    <lightning-button-icon 
+                                                                        icon-name="utility:edit" 
+                                                                        icon-class="slds-icon-text-light"
+                                                                        variant="bare"
+                                                                        onclick={toggleEditMode}>
+                                                                    </lightning-button-icon>
+                                                                </div>
+                                                            </template>
+                                                        </template>
+                                                        <!-- Value: RecordTypeId (not supported by lightning-input/output-field) -->
+                                                        <template if:true={column.fieldValue}>
+                                                            <p>{column.fieldValue}</p>
+                                                        </template>
+                                                    </div>
+                                                    <!-- Value: Date portion of Created/LastModified Date -->
+                                                    <template if:true={column.fieldDate}>
+                                                        <lightning-output-field field-name={column.fieldDate} variant="label-hidden"></lightning-output-field>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div> 
+                                        <!-- /COLUMNS -->
+                                    </template>
+                                </div>
+                                <!-- /ROWS -->
+                            </template>
+                        </div>
+                    </lightning-record-view-form>
+                </template>
+                <!-- /VIEW_FORM -->
+                <!-- EDIT_FORM -->
+                <template if:true={editMode}>
+                    <lightning-record-edit-form record-id={recordId} object-api-name={objectApiName} record-type-id={recordTypeId} onsubmit={handleSubmit} onsuccess={handleSuccess} onerror={handleError}>
+                        <!-- ERROR_PANEL -->
+                        <template if:true={error}>
+                            <c-page-layout-errors error-event={error}></c-page-layout-errors>
+                        </template>
+                        <!-- /ERROR_PANEL -->
+                        <template for:each={sectionInfo.rows} for:item="row">
+                                <div class="slds-grid slds-gutters slds-var-m-vertical_xx-small slds-border_bottom" key={row.Id}>
+                                    <template for:each={row.columns} for:item="column">
+                                        <div key={column.Id} class="slds-col" style="width: 50%">
+                                            <template if:true={column.isField}>
+                                                <!-- Field labels -->
+                                                <template if:true={column.fieldLabel}>
+                                                    <div class="slds-grid">
+                                                        <p class="slds-form-element__label slds-m-right_none slds-p-right_none">{column.fieldLabel}</p>
+                                                        <template if:true={column.required}>
+                                                            <p class="slds-var-m-top_xx-small slds-p-around_none slds-text-color_error">*</p>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                                <!-- Field Values -->
+                                                <div class="slds-var-m-bottom_small">
+                                                    <!-- Value: Normal fields -->
+                                                    <template if:true={column.fieldName}> 
+                                                        <lightning-input-field 
+                                                            field-name={column.fieldName}
+                                                            disabled={column.disabled}
+                                                            read-only={column.readOnly}
+                                                            required={column.required} 
+                                                            variant="label-hidden">
+                                                        </lightning-input-field>
+                                                    </template>
+                                                    <!-- Value: RecordTypeId (not supported by lightning-input/output-field) -->
+                                                    <template if:true={column.fieldValue}>
+                                                        <p class="slds-var-m-top_xx-small m-left_x-small">{column.fieldValue}</p>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div> 
+                                    </template>
+                                </div>
+                            </template>
+                        <!-- BUTTONS -->
+                        <div class="slds-align_absolute-center">
+                            <lightning-button
+                                class="slds-var-m-top_small slds-var-m-right_xx-small"
+                                name="cancel"
+                                label="Cancel"
+                                onclick={toggleEditMode}>
+                            </lightning-button>
+                            <lightning-button
+                                class="slds-var-m-top_small slds-var-m-left_xx-small"
+                                variant="brand"
+                                type="submit"
+                                name="save"
+                                label="Save">
+                            </lightning-button>
+                        </div>
+                        <!-- /BUTTONS -->
+                    </lightning-record-edit-form>
+                </template>
+                <!-- /EDIT_FORM -->
+            </div>
+            <!-- /MAIN_SECTION -->
+        </template>
+    </div>
+</template>

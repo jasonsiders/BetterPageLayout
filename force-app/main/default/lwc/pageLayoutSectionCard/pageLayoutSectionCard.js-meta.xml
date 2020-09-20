@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <masterLabel>Better Page Layout Section</masterLabel>
+    <description>A context-aware page layout section for easy division and customization of record detail pages.</description>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property label="Section Name" name="sectionName" type="String" required="true" default="System Information" description="Case-sensitive; If the current page has multiple sections with the same name, only the first section will be displayed."/>
+            <property label="Header" name="headerMode" type="String" datasource="Full,No Icon,Hidden" required="true" default="Full" placeholder="Full"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

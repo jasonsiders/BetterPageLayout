@@ -1,0 +1,26 @@
+<template>
+    <div>
+        <template if:true={displaySection}>
+            <lightning-card>
+                <div slot="title" class="slds-grid">
+                    <template if:true={showIcon}>
+                        <c-object-icon 
+                            record-id={recordId} 
+                            object-api-name={objectApiName}
+                            icon-size="small">
+                        </c-object-icon>
+                    </template>
+                    <template if:true={showTitle}>
+                        <h2 class="slds-var-m-top_xx-small">{sectionName}</h2>
+                    </template>
+                </div>
+                <c-page-layout-section
+                    record-id={recordId}
+                    object-api-name={objectApiName}
+                    section-name={sectionName}
+                    outer-class="slds-m-horizontal_large slds-p-bottom_small">
+                </c-page-layout-section>
+            </lightning-card>
+        </template>
+    </div>
+</template>

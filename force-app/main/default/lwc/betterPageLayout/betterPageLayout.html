@@ -1,0 +1,16 @@
+<template>
+    <div>
+        <template if:true={accordion}>
+            <c-page-layout-accordion 
+                record-id={recordId} 
+                object-api-name={objectApiName}>
+            </c-page-layout-accordion>
+        </template>
+        <template if:true={tabs}>
+            <c-page-layout-tabs 
+                record-id={recordId} 
+                object-api-name={objectApiName}>
+            </c-page-layout-tabs>
+        </template>
+    </div>
+</template>

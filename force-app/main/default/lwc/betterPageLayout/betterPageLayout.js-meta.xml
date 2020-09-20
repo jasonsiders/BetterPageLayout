@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <masterLabel>Better Page Layout</masterLabel>
+    <description>Reduces page load time by displaying the record detail in accordion or tabs.</description>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property label="Mode" name="mode" type="String" datasource="Accordion,Tabs" required="true" default="Accordion" placeholder="Accordion"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
